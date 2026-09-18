@@ -19,82 +19,383 @@ The project combines **RAG, LangChain, FastAPI, Streamlit, ChromaDB, Hugging Fac
 - 📊 RAG evaluation support
 - 🧩 Modular project architecture
 
+---
 
-🧠 How It Works
-Unable to render rich display
+## 🧠 How It Works
 
-flowchart LR
-    U[User query] --> R{Query Router}
-    R -- general --> G[Plain LLM call]
-    R -- document --> Ret[Retriever<br/>Chroma vector store]
-    Ret --> Ctx[Format context + sources]
-    Ctx --> Gen[RAG Prompt + LLM]
-    G --> P[Pydantic Parser]
-    Gen --> P
-    P --> Out[Structured JSON<br/>answer + citations]
-The key idea: before any document is retrieved, a lightweight LLM call classifies the query as general (skip the vector store entirely) or document (run full retrieval). This avoids hitting the vector store on every single request — including plain chit-chat — and keeps latency down.
+```text
+User Question
+      ↓
+Query Router
+      ↓
+Document Query / General Query
+      ↓
+Retriever
+      ↓
+ChromaDB Vector Store
+      ↓
+Relevant Document Chunks
+      ↓
+Prompt + Context
+      ↓
+OpenAI LLM
+      ↓
+Structured Answer
+      ↓
+User
+Today 7:14 PM
+mujje bhi ayesha redme me banana hai kaya karu
 
+Haan 👍 Aap apne rag_project ke liye bilkul isi type ka professional README bana sakte ho. Screenshot wale README me mainly project title, badges, description, Live Demo, How It Works, Features, Tech Stack, Run instructions hote hain.
+
+Aapke project ke according hum README banayenge.
+
+Step 1 — README.md file open karo
+
+Aapke project ka path:
+
+C:\Users\lenovo\Desktop\rag_project
+
+Is folder me ek file honi chahiye:
+
+README.md
+
+Agar nahi hai, PowerShell me ye command chalao:
+
+New-Item README.md
+
+Phir:
+
+code README.md
+
+Abhi sirf README.md open karo.
+Mujhe screenshot bhej do ki file open ho gayi hai.
+
+Uske baad main aapko aapke actual RAG project ke liye ready-to-copy professional README dunga, screenshot wale format jaisa.
+
+Haan, ab samajh gaya 👍
+
+Aapke GitHub repo me README.md already present hai. Isliye nayi file banane ki zarurat nahi hai.
+
+Screenshot me README.md ke saamne “add all file” aur 2 months ago dikh raha hai — matlab purana README hai. Hume ise update karna hai.
+
+Abhi sirf ye karo 👇
+
+GitHub me README.md par click karo.
+
+Phir mujhe uska screenshot bhejo.
+
+Uske baad main aapke actual RAG project ke liye README ka complete content bana dunga, jisme:
+
+📚 RAG Knowledge Assistant title
+🏷️ Python / LangChain / FastAPI / Streamlit / ChromaDB badges
+📝 Project description
+⚙️ How It Works
+🔄 RAG Pipeline
+✨ Features
+🏗️ Project Structure
+🚀 Installation & Run
+🔑 Environment Variables
+🌐 Render Deployment
+🖥️ Frontend + Backend
+📊 Evaluation
+
+Screenshot wale README jaisa professional format, lekin content aapke project ka hoga.
+
+Perfect 👍 Abhi aap README.md edit screen par ho. Jo line likhi hai:
+
+my fisr rag project
+
+use poora delete karna hai.
+
+Step 2 — Ye complete README paste karo
+
+Editor ke andar Ctrl + A → Delete → neeche wala content paste karo:
+
+# 📚 RAG Knowledge Assistant
+
+A modular **Retrieval-Augmented Generation (RAG)** application that allows users to ask questions and get answers using information retrieved from uploaded documents.
+
+The project combines **RAG, LangChain, FastAPI, Streamlit, ChromaDB, Hugging Face embeddings, and OpenAI LLMs**.
+
+---
+
+## 🚀 Features
+
+- 📄 Document-based Question Answering
+- 🔍 Semantic Search using Vector Embeddings
+- 🧠 Retrieval-Augmented Generation (RAG)
+- 🤖 OpenAI LLM integration
+- 🔀 Automatic query routing
+- 📚 ChromaDB vector store
+- ⚡ FastAPI backend
+- 🖥️ Streamlit frontend
+- 📊 RAG evaluation support
+- 🧩 Modular project architecture
+
+---
+
+## 🧠 How It Works
+
+```text
+User Question
+      ↓
+Query Router
+      ↓
+Document Query / General Query
+      ↓
+Retriever
+      ↓
+ChromaDB Vector Store
+      ↓
+Relevant Document Chunks
+      ↓
+Prompt + Context
+      ↓
+OpenAI LLM
+      ↓
+Structured Answer
+      ↓
+User
+🔄 RAG Pipeline
+1. Document Ingestion
+
+Source documents are loaded from:
+
+data/raw/
+
+The documents are then divided into smaller chunks.
+
+2. Embedding
+
+Each document chunk is converted into a vector embedding using a Hugging Face embedding model.
+
+3. Vector Store
+
+The embeddings are stored in ChromaDB for semantic similarity search.
+
+4. Retrieval
+
+When the user asks a document-related question, the system retrieves the most relevant chunks from ChromaDB.
+
+5. Generation
+
+The retrieved context is passed to the LLM along with the user's question.
+
+The LLM generates the final answer based on the retrieved information.
+
+🏗️ Project Structure
+rag_project/
+│
+├── backend/
+│   ├── main.py
+│   └── __init__.py
+│
+├── data/
+│   └── raw/
+│       └── documents
+│
+├── evaluation/
+│   ├── evaluate.py
+│   ├── testset.json
+│   └── __init__.py
+│
+├── frontend/
+│   ├── app.py
+│   └── __init__.py
+│
+├── generation/
+│   ├── llm.py
+│   ├── parser.py
+│   └── prompt.py
+│
+├── ingestion/
+│   ├── loader.py
+│   ├── splitter.py
+│   ├── embed_store.py
+│   └── run_ingestion.py
+│
+├── retrieval/
+│   ├── retriever.py
+│   └── __init__.py
+│
+├── routing/
+│   ├── query_router.py
+│   └── __init__.py
+│
+├── vectorstore/
+│
+├── .env.example
+├── .gitignore
+├── requirement.txt
+└── README.md
 🛠️ Tech Stack
-Layer	Choice
-Orchestration	LangChain (LCEL)
-Chat / Generation LLM	GPT-5.6 Luna, via the Experiential Labs OpenAI-compatible gateway
-Embeddings	OpenAI text-embedding-3-small (direct)
-Vector Store	ChromaDB (persisted locally)
-Structured Output	Pydantic (answer + citations on every response)
-Backend	FastAPI
-Frontend	Streamlit
-Evaluation	RAGAS — faithfulness, answer relevancy, context precision
-📁 Project Structure
-rag-project/
-├── data/raw/                 # source documents
-├── ingestion/                 # load -> split -> embed -> persist (offline, run once)
-├── retrieval/                 # wraps the persisted vector store as a retriever
-├── routing/                   # classifies queries: general vs document
-├── generation/                 # prompts, LLM config, structured output parser
-├── backend/                   # FastAPI — POST /ask, wires everything together
-├── frontend/                  # Streamlit chat UI (HTTP calls only, no LangChain)
-├── evaluation/                 # RAGAS test set + scoring script
-├── scripts/scaffold_project.py
-├── setup.ps1                  # one-command Windows environment setup
-├── requirements.txt
-└── .env.example
-🚀 Getting Started (Windows)
-git clone https://github.com/<your-username>/<your-repo>.git
-cd rag-project
+Technology	Purpose
+Python	Core programming language
+LangChain	RAG orchestration
+FastAPI	Backend API
+Streamlit	Frontend UI
+ChromaDB	Vector database
+Hugging Face	Embedding model
+OpenAI	LLM generation
+Pydantic	Structured output
+RAGAS	RAG evaluation
+Git & GitHub	Version control
+Render	Deployment
+⚙️ Installation
 
-# One command: creates venv, installs everything, sets up .env
-.\setup.ps1
-Then:
+Clone the repository:
 
-Open .env and add your real OPENAI_API_KEY, CHAT_API_KEY, CHAT_BASE_URL
-Drop source documents into data\raw\
-Build the vector store:
+git clone https://github.com/Ajaysakle721/rag_project.git
+
+Go to the project directory:
+
+cd rag_project
+
+Create a virtual environment:
+
+python -m venv venv-rag
+
+Activate the environment on Windows:
+
+venv-rag\Scripts\activate
+
+Install dependencies:
+
+pip install -r requirement.txt
+🔑 Environment Variables
+
+Create a .env file in the project root.
+
+OPENAI_API_KEY=your_openai_api_key
+
+CHAT_MODEL=gpt-4o-mini
+
+DATA_DIR=data/raw
+
+CHROMA_PERSIST_DIR=vectorstore/chroma_db
+
+CHUNK_SIZE=1000
+
+CHUNK_OVERLAP=150
+
+Never upload your real API key to GitHub.
+
+📥 Run Document Ingestion
+
+Before running the backend, create the vector database:
+
 python -m ingestion.run_ingestion
-Run the backend (Terminal 1):
-uvicorn backend.main:app --reload --port 8000
-Run the frontend (Terminal 2, same venv activated):
-streamlit run frontend\app.py
-📚 API Documentation
-Once the backend is running, the interactive Swagger UI is available at: 👉 http://localhost:8000/docs
 
+This process:
+
+Documents
+   ↓
+Loading
+   ↓
+Chunking
+   ↓
+Embedding
+   ↓
+ChromaDB
+⚡ Run Backend
+
+Start the FastAPI server:
+
+uvicorn backend.main:app --reload
+
+Backend will run at:
+
+http://127.0.0.1:8000
+
+API documentation:
+
+http://127.0.0.1:8000/docs
+🖥️ Run Frontend
+
+Open another terminal and activate the virtual environment.
+
+Then run:
+
+streamlit run frontend/app.py
+
+The Streamlit application will open in your browser.
+
+🔌 API
+Health Check
+GET /
+
+Response:
+
+{
+  "status": "ok"
+}
+Ask Question
+POST /ask
+
+Example:
+
+{
+  "question": "What is Retrieval Augmented Generation?"
+}
 ☁️ Deployment
-Deployed as two separate free-tier services, keeping the backend/frontend split real in production too:
 
-Backend → Render (Web Service)
-Setting	Value
-Build Command	pip install -r requirements.txt
-Start Command	uvicorn backend.main:app --host 0.0.0.0 --port $PORT
-Environment Variables	OPENAI_API_KEY, CHAT_MODEL, CHAT_API_KEY, CHAT_BASE_URL, EMBEDDING_MODEL, DATA_DIR, CHROMA_PERSIST_DIR, CHUNK_SIZE, CHUNK_OVERLAP
-The persisted vector store (vectorstore/chroma_db/) is committed to the repo, since Render's free tier has an ephemeral filesystem — this avoids re-embedding documents on every deploy.
+The application can be deployed using Render.
 
-Frontend → Streamlit Community Cloud
-New app → this repo → main file: frontend/app.py
-Advanced settings → Secrets:
-BACKEND_URL = "https://<your-render-backend>.onrender.com/ask"
-🔭 Possible Improvements
-Re-ranking and hybrid search (keyword + vector) for better retrieval precision
-Query rewriting for multi-turn conversations
-Guardrails / hallucination detection beyond the current prompt-level grounding
-Deeper automated evaluation (RAGAS across a larger test set)
-Containerize with Docker and add CI/CD
+Backend
+FastAPI
+    ↓
+Render Web Service
 
+Start command:
+
+uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+Frontend
+Streamlit
+    ↓
+Render Web Service
+
+The Streamlit frontend communicates with the deployed FastAPI backend.
+
+📊 Evaluation
+
+The project includes an evaluation module using RAGAS.
+
+Evaluation data is maintained in:
+
+evaluation/testset.json
+
+Evaluation script:
+
+evaluation/evaluate.py
+🎯 Project Objective
+
+The main objective of this project is to build a modular RAG system that can:
+
+Understand user queries
+Route queries appropriately
+Retrieve relevant document information
+Generate context-aware answers
+Provide a simple chat interface
+Evaluate RAG performance
+👨‍💻 Author
+
+Ajay Sakle
+
+GitHub: Ajaysakle721
+
+⭐ Future Improvements
+Support multiple document formats
+Improve retrieval accuracy
+Add conversation memory
+Add authentication
+Add advanced RAG evaluation
+Deploy using scalable vector databases
+Improve UI/UX
+
+### Abhi kya karna hai
+
+**Sirf content paste karo.**  
+Uske baad neeche **“Commit changes…”** button par click karna hai.
+
+⚠️ **Commit button abhi mat dabana** — pehle screenshot bhejo ki README paste ho gaya hai.

@@ -116,17 +116,20 @@ rag_project/
 ├── .gitignore
 ├── requirement.txt
 └── README.md
+<img width="1312" height="1199" alt="ChatGPT Image Sep 18, 2026, 08_02_36 PM" src="https://github.com/user-attachments/assets/64667ffa-95ee-4326-88b2-052804e0755b" />
+| Layer                   | Technology                            |
+| ----------------------- | ------------------------------------- |
+| 🐍 Programming Language | Python                                |
+| 🔗 RAG Framework        | LangChain                             |
+| 🧠 Embeddings           | Hugging Face — BAAI/bge-large-en-v1.5 |
+| 🗄️ Vector Database     | ChromaDB                              |
+| 🤖 LLM                  | OpenAI GPT-4o-mini                    |
+| ⚡ Backend               | FastAPI                               |
+| 🖥️ Frontend            | Streamlit                             |
+| 📦 Data Validation      | Pydantic                              |
+| 📊 Evaluation           | RAGAS                                 |
+| 🌐 Version Control      | Git & GitHub                          |
+| ☁️ Deployment           | Render                                |
 
-🛠️ Tech Stack
-Technology	Purpose
-Python	Core programming language
-LangChain	RAG orchestration
-FastAPI	Backend API
-Streamlit	Frontend UI
-ChromaDB	Vector database
-Hugging Face	Embedding model
-OpenAI	LLM generation
-Pydantic	Structured output
-RAGAS	RAG evaluation
-Git & GitHub	Version control
-Render	Deployment
+
+

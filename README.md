@@ -44,33 +44,89 @@ Structured Answer
       ↓
 User
 
-## 🛠️ Tech Stack
+🔄 RAG Pipeline
+1. Document Ingestion
 
-| Technology | Purpose |
-|------------|---------|
-| 🐍 Python | Core programming language |
-| 🔗 LangChain | RAG orchestration and prompt management |
-| ⚡ FastAPI | Backend REST API |
-| 🖥️ Streamlit | Frontend chat interface |
-| 🗄️ ChromaDB | Vector database for document embeddings |
-| 🤗 Hugging Face | Text embedding model |
-| 🤖 OpenAI | LLM-based answer generation |
-| 📦 Pydantic | Data validation and structured output |
-| 📊 RAGAS | RAG evaluation |
-| 🌐 Git & GitHub | Version control and source management |
-| ☁️ Render | Cloud deployment |
+Source documents are loaded from:
 
- 📁 Project Structure
-rag-project/
-├── data/raw/                 # source documents
-├── ingestion/                 # load -> split -> embed -> persist (offline, run once)
-├── retrieval/                 # wraps the persisted vector store as a retriever
-├── routing/                   # classifies queries: general vs document
-├── generation/                 # prompts, LLM config, structured output parser
-├── backend/                   # FastAPI — POST /ask, wires everything together
-├── frontend/                  # Streamlit chat UI (HTTP calls only, no LangChain)
-├── evaluation/                 # RAGAS test set + scoring script
-├── scripts/scaffold_project.py
-├── setup.ps1                  # one-command Windows environment setup
-├── requirements.txt
-└── .env.example
+data/raw/
+
+The documents are then divided into smaller chunks.
+
+2. Embedding
+
+Each document chunk is converted into a vector embedding using a Hugging Face embedding model.
+
+3. Vector Store
+
+The embeddings are stored in ChromaDB for semantic similarity search.
+
+4. Retrieval
+
+When the user asks a document-related question, the system retrieves the most relevant chunks from ChromaDB.
+
+5. Generation
+
+The retrieved context is passed to the LLM along with the user's question.
+
+The LLM generates the final answer based on the retrieved information.
+
+🏗️ Project Structure
+rag_project/
+│
+├── backend/
+│   ├── main.py
+│   └── __init__.py
+│
+├── data/
+│   └── raw/
+│       └── documents
+│
+├── evaluation/
+│   ├── evaluate.py
+│   ├── testset.json
+│   └── __init__.py
+│
+├── frontend/
+│   ├── app.py
+│   └── __init__.py
+│
+├── generation/
+│   ├── llm.py
+│   ├── parser.py
+│   └── prompt.py
+│
+├── ingestion/
+│   ├── loader.py
+│   ├── splitter.py
+│   ├── embed_store.py
+│   └── run_ingestion.py
+│
+├── retrieval/
+│   ├── retriever.py
+│   └── __init__.py
+│
+├── routing/
+│   ├── query_router.py
+│   └── __init__.py
+│
+├── vectorstore/
+│
+├── .env.example
+├── .gitignore
+├── requirement.txt
+└── README.md
+
+🛠️ Tech Stack
+Technology	Purpose
+Python	Core programming language
+LangChain	RAG orchestration
+FastAPI	Backend API
+Streamlit	Frontend UI
+ChromaDB	Vector database
+Hugging Face	Embedding model
+OpenAI	LLM generation
+Pydantic	Structured output
+RAGAS	RAG evaluation
+Git & GitHub	Version control
+Render	Deployment

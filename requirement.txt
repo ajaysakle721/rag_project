@@ -22,7 +22,7 @@ python-dotenv>=1.0.1
 # --- Ingestion (loaders for common doc types) ---
 pypdf>=4.2.0
 unstructured>=0.15.0
-
+sentence-transformers
 # --- Evaluation  ---
 ragas>=0.1.9
 datasets>=2.20.0

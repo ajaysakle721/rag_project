@@ -4,6 +4,3 @@ venv/
 __pycache__/
 *.pyc
 .env
-vectorstore/chroma_db/
-backend/Docker Desktop Installer.exe
-ingestion/VC_redist.x64.exe
